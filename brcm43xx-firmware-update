@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo 133 > /sys/class/gpio/export
+echo 137 > /sys/class/gpio/export
+echo 132 > /sys/class/gpio/export
+
+echo out > /sys/class/gpio/gpio133/direction
+echo out > /sys/class/gpio/gpio137/direction
+echo in > /sys/class/gpio/gpio132/direction
+
+echo 1 > /sys/class/gpio/gpio137/value
+echo 0 > /sys/class/gpio/gpio133/value
+sleep 0.1
+echo 1 > /sys/class/gpio/gpio133/value
+
+/usr/sbin/brcm_patchram_plus --baudrate 1500000 --use_baudrate_for_download --patchram /lib/firmware/bcm/ZP_BCM4339/bcm43438a1.hcd --bd_addr 11:22:33:44:55:66 --no2bytes --tosleep 1000 /dev/ttymxc2
+
+ln -sr /dev/ttymxc2 /dev/brcm43xx 

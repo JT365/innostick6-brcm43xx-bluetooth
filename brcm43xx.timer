@@ -1,0 +1,9 @@
+[Unit]
+Description=brcm43xx Delayed Startup
+Before=bluetooth.service
+
+[Timer]
+OnBootSec=15s
+
+[Install]
+WantedBy=timers.target
